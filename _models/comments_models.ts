@@ -1,7 +1,7 @@
 // export {};
 const app = require("../app.ts");
 const mongoose = require("mongoose");
-const connection = require("../db/connection.js");
+const connection = require("../db/connection.ts");
 const Comment = require("../models/commentModel.ts");
 
 exports.selectAllComments = () => {

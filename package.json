@@ -5,8 +5,8 @@
   "main": "index.js",
   "scripts": {
     "build": "npx tsc",
-    "start": "node dist/server.js",
-    "seed": "node ./db/seeds/seed.js",
+    "start": "node dist/server.ts",
+    "seed": "node ./db/seeds/seed.ts",
     "dev": "concurrently \"npx tsc --watch\" \"nodemon -q dist/server.js\"",
     "test": "mocha -required test/*.spec.ts"
   },

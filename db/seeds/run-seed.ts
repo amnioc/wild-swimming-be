@@ -1,5 +1,5 @@
-// const seedComments = require("../data/test-data");
-const seedDB = require("./seed.js");
+const seedComments = require("../data/test-data.ts");
+const seedDB = require("./seed.ts");
 const mongoose = require("mongoose");
 
 const runSeed = () => {

@@ -1,6 +1,6 @@
-const mongooseData = require("mongoose");
+const mongoose = require("mongoose");
 
-const commentSchema = new mongooseData.Schema({
+const commentSchema = new mongoose.Schema({
   body: {
     type: String,
     // required: true,
@@ -17,7 +17,7 @@ const commentSchema = new mongooseData.Schema({
   // location_id: { type: String, required: true, minLength: 2 },
 });
 
-const Comment = mongooseData.model("Comment", commentSchema);
+const Comment = mongoose.model("Comment", commentSchema);
 
 module.exports = Comment;
 

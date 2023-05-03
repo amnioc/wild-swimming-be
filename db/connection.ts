@@ -10,9 +10,6 @@ mongoose
     maxPoolSize: 50,
     useNewUrlParser: true,
   })
-  // .then(() => {
-  //   console.log(">>>>>>>>>>" + process.env.DATABASE_URL);
-  // })
   .catch((err) => {
     console.log(err + "<<<<<<<<<<");
   });

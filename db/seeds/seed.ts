@@ -2,7 +2,6 @@
 
 const mongoose = require("mongoose");
 const Comment = require("../../models/commentModel.ts");
-// const { seedComments } = require("../data/test-data");
 require("dotenv").config({
   path: "./.env.development",
 });
