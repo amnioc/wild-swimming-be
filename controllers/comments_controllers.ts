@@ -1,3 +1,12 @@
+const { selectAllComments } = require("../_models/comments_models.ts");
+
 exports.getAllComments = (req, res, next) => {
-  console.log("in the controller");
+  return selectAllComments()
+    .then((comments) => {
+      res.status(200).send({ comments });
+    })
+    .catch((err) => {
+      console.log(err);
+      next(err);
+    });
 };

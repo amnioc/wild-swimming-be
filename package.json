@@ -8,7 +8,7 @@
     "start": "node dist/server.js",
     "seed": "node ./db/seeds/seed.js",
     "dev": "concurrently \"npx tsc --watch\" \"nodemon -q dist/server.js\"",
-    "test": "mocha -r test/*.spec.ts"
+    "test": "mocha -required test/*.spec.ts"
   },
   "repository": {
     "type": "git",
@@ -26,7 +26,6 @@
     "dotenv": "^16.0.3",
     "express": "^4.18.2",
     "mongoose": "^7.1.0",
-    "supertest": "^6.3.3",
     "validator": "^13.9.0"
   },
   "devDependencies": {

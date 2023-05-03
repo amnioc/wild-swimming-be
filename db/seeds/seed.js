@@ -67,4 +67,4 @@ seedDB().then(() => {
   mongoose.connection.close();
 });
 
-module.exports = seedDB;
+module.exports = { seedDB };
