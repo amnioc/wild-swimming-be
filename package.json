@@ -39,6 +39,7 @@
     "concurrently": "^8.0.1",
     "mocha": "^10.2.0",
     "nodemon": "^2.0.22",
+    "supertest": "^6.3.3",
     "typescript": "^5.0.4"
   }
 }

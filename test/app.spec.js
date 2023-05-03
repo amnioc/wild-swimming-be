@@ -19,9 +19,9 @@ beforeEach((done) => {
   });
 });
 
-// afterAll((done) => {
-//   mongoose.connection.end();
-// });
+afterEach(() => {
+  mongoose.connection.close();
+});
 
 ////////////
 describe.only("GET /api/comments", () => {
@@ -42,7 +42,7 @@ describe("POST /api/comments", () => {
       .post("/api/comments")
       .send({
         body: "Nice place to swim",
-        username: "swimmerone",
+        name: "swimmerone",
       })
       .expect(200)
       .then((res) => {
