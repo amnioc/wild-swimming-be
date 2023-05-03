@@ -1,16 +1,11 @@
-// const app = require("../app.ts");
+const app = require("../app.ts");
+const connection = require("../db/connection.js");
 const mongoose = require("mongoose");
-// const chai = require("chai");
-// const chaiHttp = require("chai-http");
-// chai.use(chaiHttp);
-const server = require("../db/connection.js");
+
 let should = require("chai").should();
-// var { assert, expect } = require("chai");
-// const request = require("supertest");
 
 const { seedDB } = require("../db/seeds/seed.js");
 
-const app = require("../app.ts");
 const chai = require("chai");
 const { expect } = require("chai");
 const chaiHttp = require("chai-http");
@@ -20,12 +15,11 @@ chai.use(chaiHttp);
 beforeEach((done) => {
   mongoose.connection.collections.comments.drop(() => {
     seedDB();
-    console.log("doing beforeEach");
     done();
   });
 });
 
-// afterAll(() => {
+// afterAll((done) => {
 //   mongoose.connection.end();
 // });
 
@@ -37,8 +31,7 @@ describe.only("GET /api/comments", () => {
       .get("/api/comments")
       .end((err, response) => {
         response.should.have.status(200);
-      })
-      .done();
+      });
   });
 });
 ////////////////
