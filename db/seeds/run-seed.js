@@ -1,9 +1,9 @@
-const testData = require("../data/test-data");
+// const seedComments = require("../data/test-data");
 const seedDB = require("./seed.js");
-const db = require("../connection.js");
+const mongoose = require("mongoose");
 
 const runSeed = () => {
-  return seedDB(testData).then(() => db.end());
+  return seedDB(seedComments).then(() => mongoose.connection.end());
 };
 
 runSeed();

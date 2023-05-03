@@ -1,27 +1,32 @@
-const { MongoClient } = require("mongodb");
+const mongoose = require("mongoose");
 const ENV = process.env.NODE_ENV || "development";
 const dotenv = require("dotenv");
+const pathToCorrectEnvFile = `./.env.${ENV}`;
 
-const pathToCorrectEnvFile = `/home/nico/northcoders/projects/wild-swimming/wild-swimming-be/.env.${ENV}`;
+dotenv.config({ path: pathToCorrectEnvFile });
 
-MongoClient.connect(process.env.DATABASE_URL, { maxPoolSize: 50 }).catch(
-  (err) => {
-    console.log(error);
-  }
-);
+mongoose
+  .connect(`${process.env.DATABASE_URL}`, {
+    maxPoolSize: 50,
+    useNewUrlParser: true,
+  })
+  // .then(() => {
+  //   console.log(">>>>>>>>>>" + process.env.DATABASE_URL);
+  // })
+  .catch((err) => {
+    console.log(err + "<<<<<<<<<<");
+  });
 
 const config =
   ENV === "production"
     ? {
         connectionString: process.env.DATABASE_URL,
-        max: 2,
+        max: 50,
       }
     : {};
 
 if (!process.env.DATABASE_URL) {
   throw new Error("DATABASE_URL not set");
 }
-
-// const connection = new MongoClient(config);
 
 module.exports = { pathToCorrectEnvFile };
