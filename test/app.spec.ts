@@ -15,12 +15,12 @@ chai.use(chaiHttp);
 beforeEach((done) => {
   mongoose.connection.collections.comments.drop(() => {
     // seedDB();
-    done();
+    return done();
   });
 });
 
 afterEach(() => {
-  mongoose.connection.close();
+  return mongoose.connection.close();
 });
 
 ////////////
