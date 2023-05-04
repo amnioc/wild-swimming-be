@@ -3,6 +3,9 @@
 const express = require("express");
 const app = express();
 const mongoose = require("mongoose");
-const Comment = require("/home/nico/northcoders/projects/wild-swimming/wild-swimming-be/models/commentModel.ts");
+const Comment = require("./models/commentModel.ts");
+const { getAllComments } = require("./controllers/comments_controllers.ts");
+
+app.get("/api/comments", getAllComments);
 
 module.exports = app;
