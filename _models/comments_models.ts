@@ -11,3 +11,12 @@ exports.selectAllComments = () => {
     return result;
   });
 };
+
+
+exports.insertLocationComment =(newComment)=>{
+
+  // const{ name, body } = newComment;
+  return Comment.create(newComment).then((result)=>{
+    return result;
+  })
+}

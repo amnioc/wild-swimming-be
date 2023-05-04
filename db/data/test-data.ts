@@ -34,6 +34,7 @@ const seedComments = [
   {
     name: "loverNature",
     body: "the sights! the trees!",
+    location_id: "ukd5400-40750",
   },
   {
     name: "swimmerIam",
