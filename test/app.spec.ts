@@ -1,7 +1,7 @@
 const app = require("../app.ts");
 const connection = require("../db/connection.ts");
 const mongoose = require("mongoose");
-
+const supertest =require("supertest");
 let should = require("chai").should();
 
 const { seedDB } = require("../db/seeds/seed.ts");
@@ -15,7 +15,7 @@ chai.use(chaiHttp);
 beforeEach((done) => {
   mongoose.connection.collections.comments.drop(() => {
     // seedDB();
-    return done();
+   return done();
   });
 });
 
@@ -24,33 +24,44 @@ afterEach(() => {
 });
 
 ////////////
-describe.only("GET /api/comments", () => {
+describe("GET /api/comments", () => {
   it("200 - should return all comments", () => {
     chai
       .request(app)
       .get("/api/comments")
       .end((err, response) => {
         response.should.have.status(200);
+        const {comments} = response.body;
+        expect(comments).to.be.a("array")
+        expect(comments).to.have.a.lengthOf(10);
+        expect(comments[0]).to.have.property("body");
+       
       });
   });
 });
-////////////////
+///
 
-describe("POST /api/comments", () => {
-  it("200 - should respond with the correct status code and the comment returned in the response", () => {
-    return request(app)
-      .post("/api/comments")
-      .send({
-        body: "Nice place to swim",
-        name: "swimmerone",
-      })
-      .expect(200)
-      .then((res) => {
-        expect(res.body.comment).to.have.property("body").to.be.a("string");
-        expect(res.body.comment)
+describe.only("POST /api/comments", () => {
+  it("201 - should respond with the correct status code and the comment returned in the response", () => {
+    const newComment = {
+      body: "Nice place to swim",
+      name: "swimmerone",
+      location_id: "ukd5400-40750",
+    }
+    
+    return chai 
+      .request(app)
+      .post("api/comments")
+      .send(newComment)
+   
+      .then((err,response) => {
+        console.log("im the test")
+        expect(response.body.comment).to.have.property("body").to.be.a("string");
+        expect(response.body.comment)
           .to.have.property("created_at")
           .to.be.a("string");
-        expect(res.body.comment).to.have.property("username").to.be.a("string");
+        expect(response.body.comment).to.have.property("username").to.be.a("string");
+        done();
       });
   });
 });
