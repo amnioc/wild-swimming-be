@@ -14,7 +14,7 @@ chai.use(chaiHttp);
 
 beforeEach((done) => {
   mongoose.connection.collections.comments.drop(() => {
-    seedDB();
+    // seedDB();
     done();
   });
 });
