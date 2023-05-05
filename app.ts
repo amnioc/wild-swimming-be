@@ -1,11 +1,19 @@
 // export {};
-
+// const bodyParser = require("body-parser");
 const express = require("express");
 const app = express();
-const mongoose = require("mongoose");
-const Comment = require("./models/commentModel.ts");
-const { getAllComments, addCommentsByLocation } = require("./controllers/comments_controllers.ts");
+const Comments = require("./models/commentModel.ts");
+const {
+  getAllComments,
+  addComments,
+  getCommentById,
+} = require("./controllers/comments_controllers.ts");
+
+app.use(express.json());
 
 app.get("/api/comments", getAllComments);
-app.post("/api/comments", addCommentsByLocation )
+app.post("/api/comments", addComments);
+app.get("/api/comments/:_id", getCommentById); //comment_id provided by mongoDB
+// app.get("/api/comments/:location_id", getCommentsByLocation);
+
 module.exports = app;

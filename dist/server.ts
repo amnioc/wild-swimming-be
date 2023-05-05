@@ -8,7 +8,7 @@ const app = require("../app.ts");
 dotenv.config({ path: "./.env.development" });
 
 mongoose
-  .connect(process.env.DATABASE)
+  .connect(process.env.DATABASE_URL)
   .then(() => {
     console.log("connected to database...");
   })

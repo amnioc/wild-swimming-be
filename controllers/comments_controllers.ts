@@ -1,29 +1,39 @@
-const { selectAllComments, insertLocationComment } = require("../_models/comments_models.ts");
+const {
+  selectAllComments,
+  insertComment,
+  selectCommentById,
+} = require("../_models/comments_models.ts");
 
-exports.getAllComments = (req, res, next) => {
+exports.getAllComments = (req, res, err) => {
   return selectAllComments()
     .then((comments) => {
       res.status(200).send({ comments });
     })
     .catch((err) => {
-      console.log("!!there's an error");
+      res.status(500).json(error);
+    });
+};
+
+exports.addComments = (req, res, next) => {
+  const newComment = req.body;
+
+  return insertComment(newComment)
+    .then((comment) => {
+      res.status(201).send({ comment });
+    })
+    .catch((err) => {
       next(err);
     });
 };
 
-
-exports.addCommentsByLocation = (req,res,next)=>{
-  console.log(req.body)
-  
-  const newComment  =req.body
- 
-  return insertLocationComment(newComment)
-  .then((comment)=>{
-    res.status(201).send({comment})
-  })
-  .catch((err)=>{
-    console.log(err);
-    next(err);
-  });
-
+exports.getCommentById = (req, res, next) => {
+  const { _id } = req.params;
+  const comment_id = _id;
+  return selectCommentById(comment_id)
+    .then((comment) => {
+      res.status(200).send({ comment });
+    })
+    .catch((err) => {
+      next(err);
+    });
 };

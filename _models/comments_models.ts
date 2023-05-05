@@ -1,22 +1,25 @@
-// export {};
 const app = require("../app.ts");
 const mongoose = require("mongoose");
 const connection = require("../db/connection.ts");
-const Comment = require("../models/commentModel.ts");
+const Comments = require("../models/commentModel.ts");
 
 exports.selectAllComments = () => {
-  const queryString = `select * from Comment`;
-  return Comment.find({}).then((result) => {
-    console.log(result);
+  const allComments = Comments.find();
+  return allComments.then((result) => {
     return result;
   });
 };
 
+exports.insertComment = (newComment) => {
+  const addComment = Comments.create(newComment);
+  return addComment.then((result) => {
+    return result[0];
+  });
+};
 
-exports.insertLocationComment =(newComment)=>{
-
-  // const{ name, body } = newComment;
-  return Comment.create(newComment).then((result)=>{
-    return result;
-  })
-}
+exports.selectCommentById = (comment_id) => {
+  const selectComment = Comments.find({ _id: `${comment_id}` });
+  return selectComment.then((result) => {
+    return result[0];
+  });
+};

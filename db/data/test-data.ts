@@ -2,6 +2,7 @@ const seedComments = [
   {
     name: "swimmer123",
     body: "love a swim I do",
+    _id: "644a77996020cec0a56ff540",
   },
   {
     name: "water_baby",
