@@ -10,9 +10,16 @@ exports.selectAllComments = () => {
   });
 };
 
-exports.insertLocationComment = (newComment) => {
-  // const{ name, body } = newComment;
-  return Comments.insertOne(newComment).then((result) => {
-    return result;
+exports.insertComment = (newComment) => {
+  const addComment = Comments.create(newComment);
+  return addComment.then((result) => {
+    return result[0];
+  });
+};
+
+exports.selectCommentById = (comment_id) => {
+  const selectComment = Comments.find({ _id: `${comment_id}` });
+  return selectComment.then((result) => {
+    return result[0];
   });
 };

@@ -1,6 +1,7 @@
 const {
   selectAllComments,
-  insertLocationComment,
+  insertComment,
+  selectCommentById,
 } = require("../_models/comments_models.ts");
 
 exports.getAllComments = (req, res, err) => {
@@ -13,17 +14,26 @@ exports.getAllComments = (req, res, err) => {
     });
 };
 
-exports.addCommentsByLocation = (req, res, next) => {
-  console.log(req.body);
-
+exports.addComments = (req, res, next) => {
   const newComment = req.body;
 
-  return insertLocationComment(newComment)
+  return insertComment(newComment)
     .then((comment) => {
       res.status(201).send({ comment });
     })
     .catch((err) => {
-      console.log(err);
+      next(err);
+    });
+};
+
+exports.getCommentById = (req, res, next) => {
+  const { _id } = req.params;
+  const comment_id = _id;
+  return selectCommentById(comment_id)
+    .then((comment) => {
+      res.status(200).send({ comment });
+    })
+    .catch((err) => {
       next(err);
     });
 };
