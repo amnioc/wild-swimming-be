@@ -1,7 +1,8 @@
 // export {};
 
 const mongoose = require("mongoose");
-const Comment = require("../../models/commentModel.ts");
+const Comments = require("../../models/commentModel.ts");
+// const seedComments = require("../data/test-data.ts");
 require("dotenv").config({
   path: "./.env.development",
 });
@@ -57,8 +58,8 @@ const seedComments = [
 ];
 
 const seedDB = async () => {
-  await Comment.deleteMany({}); //drop pre-existing
-  await Comment.insertMany(seedComments);
+  await Comments.deleteMany({}); //drop pre-existing
+  await Comments.insertMany(seedComments);
   console.log("seeded");
 };
 
