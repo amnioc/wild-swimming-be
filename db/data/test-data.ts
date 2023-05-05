@@ -11,6 +11,7 @@ const seedComments = [
   {
     name: "nature_lover",
     body: "best swim yet! strong recommend",
+    location_id: "ukd5400-40750",
   },
   {
     name: "nature_lover",

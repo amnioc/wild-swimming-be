@@ -7,6 +7,7 @@ const {
   getAllComments,
   addComments,
   getCommentById,
+  getCommentsByLocation,
 } = require("./controllers/comments_controllers.ts");
 
 app.use(express.json());
@@ -14,6 +15,6 @@ app.use(express.json());
 app.get("/api/comments", getAllComments);
 app.post("/api/comments", addComments);
 app.get("/api/comments/:_id", getCommentById); //comment_id provided by mongoDB
-// app.get("/api/comments/:location_id", getCommentsByLocation);
+app.get("/api/comments/location/:location_id", getCommentsByLocation);
 
 module.exports = app;
