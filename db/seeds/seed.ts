@@ -2,7 +2,7 @@
 
 const mongoose = require("mongoose");
 const Comments = require("../../models/commentModel.ts");
-// const seedComments = require("../data/test-data.ts");
+const seedComments = require("../data/test-data.ts");
 require("dotenv").config({
   path: "./.env.development",
 });
@@ -14,48 +14,49 @@ mongoose
   })
   .catch((err) => console.log(err));
 
-const seedComments = [
-  {
-    username: "swimmer123",
-    body: "love a swim I do",
-  },
-  {
-    username: "water_baby",
-    body: "beautiful surroundings",
-  },
-  {
-    username: "nature_lover",
-    body: "best swim yet! strong recommend",
-  },
-  {
-    username: "nature_lover",
-    body: "wow, love it",
-  },
-  {
-    username: "swimmerIam",
-    body: "great day out",
-  },
-  {
-    username: "swimmer123",
-    body: "unreal! loved my time there",
-  },
-  {
-    username: "riversAreFun",
-    body: "went with friends, was great",
-  },
-  {
-    username: "nature_lover",
-    body: "the fly tipping made me sad",
-  },
-  {
-    username: "loverNature",
-    body: "the sights! the trees!",
-  },
-  {
-    username: "swimmerIam",
-    body: "strong recommend",
-  },
-];
+// const seedComments = [
+//   {
+//     name: "swimmer123",
+//     body: "love a swim I do",
+//   },
+//   {
+//     name: "water_baby",
+//     body: "beautiful surroundings",
+//     location_id: "ukd5400-40750",
+//   },
+//   {
+//     name: "nature_lover",
+//     body: "best swim yet! strong recommend",
+//   },
+//   {
+//     name: "nature_lover",
+//     body: "wow, love it",
+//   },
+//   {
+//     name: "swimmerIam",
+//     body: "great day out",
+//   },
+//   {
+//     name: "swimmer123",
+//     body: "unreal! loved my time there",
+//   },
+//   {
+//     name: "riversAreFun",
+//     body: "went with friends, was great",
+//   },
+//   {
+//     name: "nature_lover",
+//     body: "the fly tipping made me sad",
+//   },
+//   {
+//     name: "loverNature",
+//     body: "the sights! the trees!",
+//   },
+//   {
+//     name: "swimmerIam",
+//     body: "strong recommend",
+//   },
+// ];
 
 const seedDB = async () => {
   await Comments.deleteMany({}); //drop pre-existing

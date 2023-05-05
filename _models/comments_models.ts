@@ -13,13 +13,22 @@ exports.selectAllComments = () => {
 exports.insertComment = (newComment) => {
   const addComment = Comments.create(newComment);
   return addComment.then((result) => {
-    return result[0];
+    return result;
   });
 };
 
 exports.selectCommentById = (comment_id) => {
   const selectComment = Comments.find({ _id: `${comment_id}` });
   return selectComment.then((result) => {
+    console.log(result);
     return result[0];
+  });
+};
+
+exports.selectCommentsByLocation = (location_id) => {
+  const selectComments = Comments.find({ location_id: `${location_id}` });
+  console.log(location_id);
+  return selectComments.then((result) => {
+    return result;
   });
 };

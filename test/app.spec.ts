@@ -5,7 +5,7 @@ const supertest = require("supertest");
 const Comments = require("../models/commentModel.ts");
 const { seedDB } = require("../db/seeds/seed.ts");
 const seedComments = require("../db/data/test-data.ts");
-const each = require("chai-each");
+
 const chai = require("chai");
 const { expect } = require("chai");
 const should = chai.should();
@@ -14,9 +14,10 @@ const request = require("supertest");
 chai.use(chaiHttp);
 
 describe("Comments", () => {
-  beforeEach(async () => {
+  before((done) => {
     mongoose.connect(process.env.DATABASE_URL);
     seedDB();
+    done();
   });
 
   after(async () => {
@@ -38,12 +39,12 @@ describe("Comments", () => {
           expect(comments[0]).to.have.property("location_id").to.be.a("string");
           expect(comments[0]).to.have.property("votes").to.be.a("number");
           expect(comments[0]).to.have.property("created_at").to.be.a("string");
-        })
-        .catch((err) => {
-          console.log(err);
         });
+      // .catch((err) => {
+      //   console.log(err);
+      // });
     });
-    it("404", () => {
+    it.skip("404", () => {
       //error handling to follow
     });
   });
@@ -68,10 +69,10 @@ describe("Comments", () => {
           expect(comment).to.have.property("votes").to.be.a("number");
           expect(comment).to.have.property("location_id").to.be.a("string");
           expect(comment).to.have.property("_id").to.be.a("string"); // comment_id
-        })
-        .catch((err) => {
-          console.log(err);
         });
+      // .catch((err) => {
+      //   console.log(err);
+      // });
     });
   });
 
@@ -79,19 +80,47 @@ describe("Comments", () => {
     it.only("200 - responds with comment by comment_id", () => {
       return chai
         .request(app)
-        .get("/api/comments/6454e260d5ccba8bd17a7a91")
+        .get("/api/comments/644a77996020cec0a56ff540") // this changes every reseed
         .then((res) => {
           res.status.should.be.equal(200);
           const { comment } = res.body;
-          expect(comment).to.have.property("body").to.equal("strong recommend");
-
+          expect(comment).to.have.property("body").to.equal("love a swim I do");
           expect(comment).to.have.property("created_at").to.be.a("string");
-          expect(comment).to.have.property("name").to.equal("swimmer_name");
+          expect(comment).to.have.property("name").to.equal("swimmer123");
           expect(comment).to.have.property("votes").to.equal(0);
           expect(comment)
             .to.have.property("location_id")
             .to.equal("id_incoming");
         });
+      // .catch((err) => {
+      //   console.log("test error by comment_id");
+      //   console.log(err);
+      // });
+    });
+  });
+
+  describe("GET /api/comments/:location_id", () => {
+    it("200 - returns array of comments for location_id", () => {
+      return chai
+        .request(app)
+        .get("/api/comments/location/ukd5400-40750")
+        .then((res) => {
+          expect(res.status).to.be.equal(200);
+          const { comments } = res.body;
+          comments.should.be.a("array");
+          expect(comments).to.have.lengthOf(2);
+          comments.map((comment) => {
+            expect(comment).to.have.property("body").to.be.a("string");
+            expect(comment).to.have.property("name").to.be.a("string");
+            expect(comment).to.have.property("votes").to.equal(0);
+            expect(comment)
+              .to.have.property("location_id")
+              .to.equal("ukd5400-40750");
+          });
+        });
+      // .catch((err) => {
+      //   console.log(`there was a test error by location_id`);
+      // });
     });
   });
 });
