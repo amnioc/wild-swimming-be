@@ -32,3 +32,10 @@ exports.selectCommentsByLocation = (location_id) => {
     return result;
   });
 };
+
+exports.removeCommentById = (comment_id) => {
+  const deleteComment = Comments.deleteOne({ _id: `${comment_id}` });
+  return deleteComment.then((result) => {
+    return result;
+  });
+};
