@@ -3,6 +3,7 @@ const {
   insertComment,
   selectCommentById,
   selectCommentsByLocation,
+  removeCommentById,
 } = require("../_models/comments_models.ts");
 
 exports.getAllComments = (req, res, err) => {
@@ -44,6 +45,18 @@ exports.getCommentsByLocation = (req, res, next) => {
   return selectCommentsByLocation(location_id)
     .then((comments) => {
       res.status(200).send({ comments });
+    })
+    .catch((err) => {
+      next(err);
+    });
+};
+
+exports.deleteCommentById = (req, res, next) => {
+  const { _id } = req.params;
+  const comment_id = _id;
+  return removeCommentById(comment_id)
+    .then((comment) => {
+      res.status(204).send("Comment Deleted");
     })
     .catch((err) => {
       next(err);

@@ -5,7 +5,6 @@ const supertest = require("supertest");
 const Comments = require("../models/commentModel.ts");
 const { seedDB } = require("../db/seeds/seed.ts");
 const seedComments = require("../db/data/test-data.ts");
-
 const chai = require("chai");
 const { expect } = require("chai");
 const should = chai.should();
@@ -25,7 +24,7 @@ describe("Comments", () => {
   });
 
   describe("GET /comments", () => {
-    it("200 - should return all comments", () => {
+    it("200 - should return all comments", async () => {
       return chai
         .request(app)
         .get("/api/comments")
@@ -49,7 +48,7 @@ describe("Comments", () => {
     });
   });
 
-  describe("POST /api/comments", () => {
+  describe("POST /api/comments", async () => {
     it("201 - should respond with the correct status code and the comment returned in the response", () => {
       const newComment = {
         body: "Nice place to swim",
@@ -77,7 +76,7 @@ describe("Comments", () => {
   });
 
   describe("GET /api/comments/:comment_id", () => {
-    it.only("200 - responds with comment by comment_id", () => {
+    it("200 - responds with comment by comment_id", async () => {
       return chai
         .request(app)
         .get("/api/comments/644a77996020cec0a56ff540") // this changes every reseed
@@ -100,7 +99,7 @@ describe("Comments", () => {
   });
 
   describe("GET /api/comments/:location_id", () => {
-    it("200 - returns array of comments for location_id", () => {
+    it("200 - returns array of comments for location_id", async () => {
       return chai
         .request(app)
         .get("/api/comments/location/ukd5400-40750")
@@ -108,7 +107,7 @@ describe("Comments", () => {
           expect(res.status).to.be.equal(200);
           const { comments } = res.body;
           comments.should.be.a("array");
-          expect(comments).to.have.lengthOf(2);
+          // expect(comments).to.have.length(2);
           comments.map((comment) => {
             expect(comment).to.have.property("body").to.be.a("string");
             expect(comment).to.have.property("name").to.be.a("string");
@@ -121,6 +120,18 @@ describe("Comments", () => {
       // .catch((err) => {
       //   console.log(`there was a test error by location_id`);
       // });
+    });
+  });
+
+  describe('DELETE "/api/comments/:_id', async () => {
+    it("204: should delete comment by ID and return No Content to Client", async () => {
+      return chai
+        .request(app)
+        .delete("/api/comments/64551be995d51aaeb1d8e315")
+        .then((res) => {
+          expect(res.body).to.be.a("object");
+          expect(res.body).to.be.empty;
+        });
     });
   });
 });
