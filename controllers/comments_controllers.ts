@@ -76,7 +76,7 @@ exports.updateCommentVotes = (req, res, next) => {
   ];
 
   Promise.all(commentPromises)
-    .then((comment) => {
+    .then(([comment]) => {
       res.status(200).send({ comment });
     })
     .catch((err) => {

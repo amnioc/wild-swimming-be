@@ -167,7 +167,7 @@ describe("Comments", () => {
           expect(body.msg).to.equal("No Votes Provided");
         });
     });
-    it('400: should return "Invalid Data Type" for invalid votes format', () => {
+    it.only('400: should return "Invalid Data Type" for invalid votes format', () => {
       const testIncVotes = { incVotes: 1 };
 
       return chai
@@ -180,5 +180,6 @@ describe("Comments", () => {
           expect(body.msg).to.equal("Invalid ID");
         });
     });
+    it('400: should return "Invalid Data Type" for invalid comment_id/_id', () => {});
   });
 });

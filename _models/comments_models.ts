@@ -57,19 +57,18 @@ exports.changeCommentVotes = (incVotes, comment_id) => {
     { new: true }
   );
   return findCommentAndUpdate.then((result) => {
-    return result[0];
+    return result;
   });
 };
 
 exports.checkCommentExists = (comment_id) => {
-  const findComment = Comments.find({ _id: comment_id });
+  const findComment = Comments.findOne({ _id: comment_id });
   return findComment.then((result) => {
-    if (result.length === 0) {
+    if (result === null || undefined) {
       return Promise.reject({
-        status: 400,
-        msg: "Invalid ID",
+        status: 404,
+        msg: "Comment Does Not Exist",
       });
     }
-    return result;
   });
 };
