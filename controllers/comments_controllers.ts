@@ -5,6 +5,7 @@ const {
   selectCommentsByLocation,
   removeCommentById,
   changeCommentVotes,
+  checkCommentExists,
 } = require("../_models/comments_models.ts");
 
 exports.getAllComments = (req, res, err) => {
@@ -68,7 +69,13 @@ exports.updateCommentVotes = (req, res, next) => {
   const { _id } = req.params;
   const comment_id = _id;
   const { incVotes } = req.body;
-  return changeCommentVotes(incVotes, comment_id)
+
+  const commentPromises = [
+    changeCommentVotes(incVotes, comment_id),
+    checkCommentExists(comment_id),
+  ];
+
+  Promise.all(commentPromises)
     .then((comment) => {
       res.status(200).send({ comment });
     })

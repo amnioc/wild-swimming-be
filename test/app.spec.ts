@@ -145,7 +145,7 @@ describe("Comments", () => {
         .send(testIncVotes)
         .then((res) => {
           const { comment } = res.body;
-          console.log(res.body);
+          expect(res.status).to.equal(200);
           expect(comment).to.be.a("object");
           expect(comment).to.have.property("body").to.be.a("string");
           expect(comment).to.have.property("name").to.equal("swimmer123");
@@ -154,6 +154,30 @@ describe("Comments", () => {
             .to.have.property("location_id")
             .to.equal("id_incoming");
           expect(comment).to.have.property("votes").to.be.at.least(1);
+        });
+    });
+    it("400: returns error message if incVotes key is missing/null", () => {
+      return chai
+        .request(app)
+        .patch("/api/comments/6457cc9f56d1ec8c95b7f5e9")
+        .send({})
+        .then((res) => {
+          const { body } = res;
+          expect(res.status).to.equal(400);
+          expect(body.msg).to.equal("No Votes Provided");
+        });
+    });
+    it('400: should return "Invalid Data Type" for invalid votes format', () => {
+      const testIncVotes = { incVotes: 1 };
+
+      return chai
+        .request(app)
+        .patch("/api/comments/123")
+        .send(testIncVotes)
+        .then((res) => {
+          const { body } = res;
+          expect(res.status).to.equal(400);
+          expect(body.msg).to.equal("Invalid ID");
         });
     });
   });
