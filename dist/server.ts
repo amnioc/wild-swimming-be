@@ -1,6 +1,5 @@
 //connect and listen
-
-"use strict";
+("use strict");
 Object.defineProperty(exports, "__esModule", { value: true });
 const mongoose = require("mongoose");
 const dotenv = require("dotenv");

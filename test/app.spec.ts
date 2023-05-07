@@ -134,4 +134,27 @@ describe("Comments", () => {
         });
     });
   });
+
+  describe("PATCH /api/comments/_id", () => {
+    it("200 - should return comment with votes value increased/decreased by 1", () => {
+      const testIncVotes = { incVotes: 1 };
+
+      return chai
+        .request(app)
+        .patch("/api/comments/644a77996020cec0a56ff540")
+        .send(testIncVotes)
+        .then((res) => {
+          const { comment } = res.body;
+          console.log(res.body);
+          expect(comment).to.be.a("object");
+          expect(comment).to.have.property("body").to.be.a("string");
+          expect(comment).to.have.property("name").to.equal("swimmer123");
+          expect(comment).to.have.property("created_at").to.be.a("string");
+          expect(comment)
+            .to.have.property("location_id")
+            .to.equal("id_incoming");
+          expect(comment).to.have.property("votes").to.be.at.least(1);
+        });
+    });
+  });
 });

@@ -39,3 +39,24 @@ exports.removeCommentById = (comment_id) => {
     return result;
   });
 };
+
+exports.changeCommentVotes = (incVotes, comment_id) => {
+  if (!incVotes) {
+    return Promise.reject({
+      status: 400,
+      msg: "No Votes Provided",
+    });
+  }
+  const filter = { _id: comment_id };
+  const update = { votes: incVotes };
+  const findCommentAndUpdate = Comments.findOneAndUpdate(
+    filter,
+    {
+      $inc: update,
+    },
+    { new: true }
+  );
+  return findCommentAndUpdate.then((result) => {
+    return result;
+  });
+};
