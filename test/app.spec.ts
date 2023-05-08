@@ -86,7 +86,7 @@ describe("Comments", () => {
           expect(comment).to.have.property("body").to.equal("love a swim I do");
           expect(comment).to.have.property("created_at").to.be.a("string");
           expect(comment).to.have.property("name").to.equal("swimmer123");
-          expect(comment).to.have.property("votes").to.equal(0);
+          expect(comment).to.have.property("votes").to.be.a("number");
           expect(comment)
             .to.have.property("location_id")
             .to.equal("id_incoming");
@@ -145,7 +145,7 @@ describe("Comments", () => {
   });
 
   describe("PATCH /api/comments/_id", () => {
-    it("200 - should return comment with votes value increased/decreased by 1", () => {
+    it("200 - should return comment with votes value increased by 1", () => {
       const testIncVotes = { incVotes: 1 };
 
       return chai

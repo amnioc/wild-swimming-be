@@ -14,7 +14,7 @@ exports.getAllComments = (req, res, err) => {
       res.status(200).send({ comments });
     })
     .catch((err) => {
-      res.status(500).json(error);
+      res.status(500).json(err);
     });
 };
 
