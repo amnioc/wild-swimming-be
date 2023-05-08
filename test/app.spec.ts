@@ -167,7 +167,7 @@ describe("Comments", () => {
           expect(body.msg).to.equal("No Votes Provided");
         });
     });
-    it.only('400: should return "Invalid Data Type" for invalid votes format', () => {
+    it('400: should return "Invalid Parameter Provided" for comment_id/_id', () => {
       const testIncVotes = { incVotes: 1 };
 
       return chai
@@ -177,9 +177,21 @@ describe("Comments", () => {
         .then((res) => {
           const { body } = res;
           expect(res.status).to.equal(400);
-          expect(body.msg).to.equal("Invalid ID");
+          expect(body.msg).to.equal("Invalid Parameter Provided");
         });
     });
-    it('400: should return "Invalid Data Type" for invalid comment_id/_id', () => {});
+    it.only('400: should return "Invalid Parameter Provided" for invalid votes data format', () => {
+      const testIncVotes = { incVotes: "one" };
+
+      return chai
+        .request(app)
+        .patch("/api/comments/6457cc9f56d1ec8c95b7f5e9")
+        .send(testIncVotes)
+        .then((res) => {
+          expect(res.status).to.equal(400);
+          const { msg } = res.body;
+          expect(msg).to.equal("Invalid Parameter Provided");
+        });
+    });
   });
 });
