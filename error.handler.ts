@@ -2,7 +2,8 @@ const express = require("express");
 const app = require("./app.ts");
 
 function MongooseErrors(err, req, res, next) {
-  if ((res.body.error.name = "CastError")) {
+  if ((err.name = "CastError")) {
+    res.status(400).send({ msg: "Invalid ID" });
   }
 }
 
