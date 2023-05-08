@@ -2,7 +2,9 @@ const express = require("express");
 const app = require("./app.ts");
 
 function MongooseErrors(err, req, res, next) {
-  if ((err.name = "CastError")) {
+  if (err.name == "CastError" && err.path == "_id") {
+    res.status(404).send({ msg: "Comment Does Not Exist" });
+  } else {
     res.status(400).send({ msg: "Invalid Parameter Provided" });
   }
 }
