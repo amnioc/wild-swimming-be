@@ -64,7 +64,7 @@ exports.changeCommentVotes = (incVotes, comment_id) => {
 exports.checkCommentExists = (comment_id) => {
   const findComment = Comments.findOne({ _id: comment_id });
   return findComment.then((result) => {
-    if (result === null || undefined) {
+    if (result === undefined) {
       return Promise.reject({
         status: 404,
         msg: "Comment Does Not Exist",

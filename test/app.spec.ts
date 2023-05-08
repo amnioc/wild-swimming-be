@@ -133,6 +133,15 @@ describe("Comments", () => {
           expect(res.body).to.be.empty;
         });
     });
+    it('404: should return "Comment Does Not Exist" for invalid comment_id', () => {
+      return chai
+        .request(app)
+        .delete("/api/comments/1230")
+        .then((res) => {
+          expect(res.status).to.equal(404);
+          expect(res.body.msg).to.equal("Comment Does Not Exist");
+        });
+    });
   });
 
   describe("PATCH /api/comments/_id", () => {
@@ -167,7 +176,7 @@ describe("Comments", () => {
           expect(body.msg).to.equal("No Votes Provided");
         });
     });
-    it('400: should return "Invalid Parameter Provided" for comment_id/_id', () => {
+    it('404: should return "Comment Does Not Exist" for invalid comment_id/_id', () => {
       const testIncVotes = { incVotes: 1 };
 
       return chai
@@ -176,11 +185,11 @@ describe("Comments", () => {
         .send(testIncVotes)
         .then((res) => {
           const { body } = res;
-          expect(res.status).to.equal(400);
-          expect(body.msg).to.equal("Invalid Parameter Provided");
+          expect(res.status).to.equal(404);
+          expect(body.msg).to.equal("Comment Does Not Exist");
         });
     });
-    it.only('400: should return "Invalid Parameter Provided" for invalid votes data format', () => {
+    it('400: should return "Invalid Parameter Provided" for invalid votes data format', () => {
       const testIncVotes = { incVotes: "one" };
 
       return chai
