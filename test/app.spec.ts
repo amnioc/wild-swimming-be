@@ -134,4 +134,64 @@ describe("Comments", () => {
         });
     });
   });
+
+  describe("PATCH /api/comments/_id", () => {
+    it("200 - should return comment with votes value increased/decreased by 1", () => {
+      const testIncVotes = { incVotes: 1 };
+
+      return chai
+        .request(app)
+        .patch("/api/comments/644a77996020cec0a56ff540")
+        .send(testIncVotes)
+        .then((res) => {
+          const { comment } = res.body;
+          expect(res.status).to.equal(200);
+          expect(comment).to.be.a("object");
+          expect(comment).to.have.property("body").to.be.a("string");
+          expect(comment).to.have.property("name").to.equal("swimmer123");
+          expect(comment).to.have.property("created_at").to.be.a("string");
+          expect(comment)
+            .to.have.property("location_id")
+            .to.equal("id_incoming");
+          expect(comment).to.have.property("votes").to.be.at.least(1);
+        });
+    });
+    it("400: returns error message if incVotes key is missing/null", () => {
+      return chai
+        .request(app)
+        .patch("/api/comments/6457cc9f56d1ec8c95b7f5e9")
+        .send({})
+        .then((res) => {
+          const { body } = res;
+          expect(res.status).to.equal(400);
+          expect(body.msg).to.equal("No Votes Provided");
+        });
+    });
+    it('400: should return "Invalid Parameter Provided" for comment_id/_id', () => {
+      const testIncVotes = { incVotes: 1 };
+
+      return chai
+        .request(app)
+        .patch("/api/comments/123")
+        .send(testIncVotes)
+        .then((res) => {
+          const { body } = res;
+          expect(res.status).to.equal(400);
+          expect(body.msg).to.equal("Invalid Parameter Provided");
+        });
+    });
+    it.only('400: should return "Invalid Parameter Provided" for invalid votes data format', () => {
+      const testIncVotes = { incVotes: "one" };
+
+      return chai
+        .request(app)
+        .patch("/api/comments/6457cc9f56d1ec8c95b7f5e9")
+        .send(testIncVotes)
+        .then((res) => {
+          expect(res.status).to.equal(400);
+          const { msg } = res.body;
+          expect(msg).to.equal("Invalid Parameter Provided");
+        });
+    });
+  });
 });
