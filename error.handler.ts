@@ -1,5 +1,5 @@
 const express = require("express");
-const app = require("./app.ts");
+const app = require("./app");
 
 function MongooseErrors(err, req, res, next) {
   if (err.name === "CastError" && err.path === "_id") {

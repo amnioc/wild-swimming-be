@@ -6,7 +6,7 @@ const {
   removeCommentById,
   changeCommentVotes,
   checkCommentExists,
-} = require("../_models/comments_models.ts");
+} = require("../_models/comments_models");
 
 exports.getAllComments = (req, res, err) => {
   return selectAllComments()

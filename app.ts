@@ -1,3 +1,5 @@
+export {};
+
 const express = require("express");
 const app = express();
 const {
@@ -7,12 +9,12 @@ const {
   getCommentsByLocation,
   deleteCommentById,
   updateCommentVotes,
-} = require("./controllers/comments_controllers.ts");
+} = require("./controllers/comments_controllers");
 const {
   CustomErrors,
   error500Handler,
   MongooseErrors,
-} = require("./error.handler.ts");
+} = require("./error.handler");
 
 app.use(express.json());
 

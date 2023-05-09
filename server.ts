@@ -4,10 +4,11 @@ const mongoose = require("mongoose");
 const dotenv = require("dotenv");
 const app = require("./app");
 
-dotenv.config({ path: "./.env.dev" });
+const ENV = process.env.NODE_ENV || "development";
+dotenv.config({ path: `${__dirname}/.env.${ENV}` });
 
 mongoose
-  .connect(process.env.DATABASE)
+  .connect(process.env.DATABASE_URL)
   .then(() => {
     console.log("connected to database...");
   })

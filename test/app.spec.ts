@@ -1,10 +1,12 @@
-const app = require("../app.ts");
-const connection = require("../db/connection.ts");
+export {};
+
+const app = require("../app");
+const connection = require("../db/connection");
 const mongoose = require("mongoose");
 const supertest = require("supertest");
-const Comments = require("../models/commentModel.ts");
-const { seedDB } = require("../db/seeds/seed.ts");
-const seedComments = require("../db/data/test-data.ts");
+const Comments = require("../models/commentModel");
+const { seedDB } = require("../db/seeds/seed");
+const seedComments = require("../db/data/test-data");
 const chai = require("chai");
 const { expect } = require("chai");
 const should = chai.should();

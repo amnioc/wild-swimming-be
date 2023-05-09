@@ -1,7 +1,9 @@
-const app = require("../app.ts");
+export {};
+
+const app = require("../app");
 const mongoose = require("mongoose");
-const connection = require("../db/connection.ts");
-const Comments = require("../models/commentModel.ts");
+const connection = require("../db/connection");
+const Comments = require("../models/commentModel");
 
 exports.selectAllComments = () => {
   const allComments = Comments.find();

@@ -1,12 +1,14 @@
-const mongoose = require("mongoose");
-const ENV = process.env.NODE_ENV || "development";
-const dotenv = require("dotenv");
-const pathToCorrectEnvFile = `./.env.${ENV}`;
+export {};
 
+const mongoose = require("mongoose");
+const dotenv = require("dotenv");
+const ENV = process.env.NODE_ENV || "development";
+
+const pathToCorrectEnvFile = `${__dirname}/../.env.${ENV}`;
 dotenv.config({ path: pathToCorrectEnvFile });
 
 mongoose
-  .connect(`${process.env.DATABASE_URL}`, {
+  .connect(process.env.DATABASE_URL, {
     maxPoolSize: 50,
     useNewUrlParser: true,
   })
