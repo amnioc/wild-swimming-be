@@ -40,6 +40,8 @@ describe("Comments", () => {
           expect(comments[0]).to.have.property("location_id").to.be.a("string");
           expect(comments[0]).to.have.property("votes").to.be.a("number");
           expect(comments[0]).to.have.property("created_at").to.be.a("string");
+          expect(comments[0]).to.have.property("user_id").to.be.a("string");
+          expect(comments[0]).to.have.property("avatar_url").to.be.a("string");
         });
       // .catch((err) => {
       //   console.log(err);
@@ -70,6 +72,8 @@ describe("Comments", () => {
           expect(comment).to.have.property("votes").to.be.a("number");
           expect(comment).to.have.property("location_id").to.be.a("string");
           expect(comment).to.have.property("_id").to.be.a("string"); // comment_id
+          expect(comment).to.have.property("user_id").to.be.a("string");
+          expect(comment).to.have.property("avatar_url").to.be.a("string");
         });
       // .catch((err) => {
       //   console.log(err);
@@ -89,6 +93,8 @@ describe("Comments", () => {
           expect(comment).to.have.property("created_at").to.be.a("string");
           expect(comment).to.have.property("name").to.equal("swimmer123");
           expect(comment).to.have.property("votes").to.be.a("number");
+          expect(comment).to.have.property("user_id").to.be.a("string");
+          expect(comment).to.have.property("avatar_url").to.be.a("string");
           expect(comment)
             .to.have.property("location_id")
             .to.equal("id_incoming");
@@ -114,6 +120,8 @@ describe("Comments", () => {
             expect(comment).to.have.property("body").to.be.a("string");
             expect(comment).to.have.property("name").to.be.a("string");
             expect(comment).to.have.property("votes").to.equal(0);
+            expect(comment).to.have.property("user_id").to.be.a("string");
+            expect(comment).to.have.property("avatar_url").to.be.a("string");
             expect(comment)
               .to.have.property("location_id")
               .to.equal("ukd5400-40750");
@@ -161,6 +169,8 @@ describe("Comments", () => {
           expect(comment).to.have.property("body").to.be.a("string");
           expect(comment).to.have.property("name").to.equal("swimmer123");
           expect(comment).to.have.property("created_at").to.be.a("string");
+          expect(comment).to.have.property("user_id").to.be.a("string");
+          expect(comment).to.have.property("avatar_url").to.be.a("string");
           expect(comment)
             .to.have.property("location_id")
             .to.equal("id_incoming");
