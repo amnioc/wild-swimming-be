@@ -1,3 +1,4 @@
+// export {};
 const testData = require("../data/test-data.ts");
 const seedDB = require("./seed.ts");
 const mongoose = require("mongoose");

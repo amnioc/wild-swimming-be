@@ -1,3 +1,4 @@
+// export {};
 const app = require("../app.ts");
 const mongoose = require("mongoose");
 const connection = require("../db/connection.ts");

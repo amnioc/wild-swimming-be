@@ -1,3 +1,4 @@
+// export {};
 const mongoose = require("mongoose");
 const Comments = require("../../models/commentModel.ts");
 const seedComments = require("../data/test-data.ts");
