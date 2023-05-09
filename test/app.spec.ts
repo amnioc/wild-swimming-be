@@ -75,9 +75,6 @@ describe("Comments", () => {
           expect(comment).to.have.property("user_id").to.be.a("string");
           expect(comment).to.have.property("avatar_url").to.be.a("string");
         });
-      // .catch((err) => {
-      //   console.log(err);
-      // });
     });
   });
 
@@ -99,10 +96,6 @@ describe("Comments", () => {
             .to.have.property("location_id")
             .to.equal("id_incoming");
         });
-      // .catch((err) => {
-      //   console.log("test error by comment_id");
-      //   console.log(err);
-      // });
     });
   });
 
