@@ -1,6 +1,7 @@
 export {};
 
 const express = require("express");
+const cors = require("cors");
 const app = express();
 const {
   getAllComments,
@@ -15,7 +16,7 @@ const {
   error500Handler,
   MongooseErrors,
 } = require("./error.handler");
-
+app.use(cors());
 app.use(express.json());
 
 app.get("/api/comments", getAllComments);
