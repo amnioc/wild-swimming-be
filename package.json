@@ -4,7 +4,7 @@
   "description": "",
   "main": "dist/server.js",
   "scripts": {
-    "build:prod": "NODE_ENV=production && tsc && cp .env.development ./dist/.env.production",
+    "build:prod": "tsc && cp .env.development ./dist/.env.production",
     "build:dev": "npx tsc && cp .env.development ./dist/.env.development",
     "start": "node dist/server.ts",
     "seed": "node ./db/seeds/seed.ts",
