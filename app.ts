@@ -12,6 +12,10 @@ const {
   updateCommentVotes,
 } = require("./controllers/comments_controllers");
 const {
+  addRating,
+  getLocationRatings,
+} = require("./controllers/ratings_controller");
+const {
   CustomErrors,
   error500Handler,
   MongooseErrors,
@@ -25,6 +29,8 @@ app.get("/api/comments/:_id", getCommentById); //_id is comment_id provided by m
 app.get("/api/comments/location/:location_id", getCommentsByLocation);
 app.delete("/api/comments/:_id", deleteCommentById);
 app.patch("/api/comments/:_id", updateCommentVotes);
+app.get("/api/ratings/:locationId", getLocationRatings);
+app.post("/api/ratings", addRating);
 
 //error handling below
 app.use(MongooseErrors);

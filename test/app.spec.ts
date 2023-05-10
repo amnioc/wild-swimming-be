@@ -227,3 +227,97 @@ describe("Comments", () => {
     });
   });
 });
+
+describe("Ratings", () => {
+  let rating;
+
+  beforeEach(() => {
+    rating = {
+      rating: 1,
+      locationId: "uki1106-11940",
+      userId: "someuserid12",
+    };
+  });
+
+  describe("POST /ratings", () => {
+    it("201 - should return the posted rating", () => {
+      return chai
+        .request(app)
+        .post("/api/ratings")
+        .send(rating)
+        .then((res) => {
+          expect(res.status).to.equal(201);
+
+          const { rating } = res.body;
+
+          expect(rating).to.have.property("rating").to.be.a("number");
+          expect(rating).to.have.property("userId").to.be.a("string");
+          expect(rating).to.have.property("locationId").to.be.a("string");
+        });
+    });
+
+    it('400 - should respond with correct status code and message "Validation Failed" for incorrect number of votes', () => {
+      const wrongRating = {
+        rating: 20,
+        locationId: "uki1106-11940",
+        userId: "someuserid1234",
+      };
+
+      return chai
+        .request(app)
+        .post("/api/ratings")
+        .send(wrongRating)
+        .then((res) => {
+          const { msg } = res.body;
+          expect(res.status).to.equal(400);
+          expect(msg).to.equal("rating validation failed, please try again");
+        });
+    });
+
+    it('400 - should respond with correct status code and message "Validation Failed" for incorrect fields', () => {
+      const wrongRating = {
+        rating: 5,
+        locationId: "uki1106-11940",
+      };
+
+      return chai
+        .request(app)
+        .post("/api/ratings")
+        .send(wrongRating)
+        .then((res) => {
+          const { msg } = res.body;
+          expect(res.status).to.equal(400);
+
+          expect(msg).to.equal("rating validation failed, please try again");
+        });
+    });
+  });
+
+  describe("GET /ratings", () => {
+    it("200 - should return all the rating given a location ID", () => {
+      return chai
+        .request(app)
+        .get("/api/ratings/uki1106-11940")
+        .then((res) => {
+          expect(res.status).to.equal(200);
+
+          const { ratings } = res.body;
+
+          expect(ratings[0]).to.have.property("rating").to.be.a("number");
+          expect(ratings[0]).to.have.property("userId").to.be.a("string");
+          expect(ratings[0]).to.have.property("locationId").to.be.a("string");
+        });
+    });
+
+    it("404 - should return 404 if location not found", () => {
+      return chai
+        .request(app)
+        .get("/api/ratings/uki1106-11944")
+        .then((res) => {
+          const { status, message } = res.body;
+          expect(status).to.equal(404);
+          expect(message).to.equal("No rating found by that ID");
+        });
+    });
+  });
+});
