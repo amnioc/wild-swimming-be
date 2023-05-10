@@ -19,7 +19,7 @@ const commentSchema = new mongoose.Schema({
     type: String,
     required: "Please enter a comment",
     minLength: 2,
-    default: "Comment Body Here",
+    // default: "Comment Body Here",
   },
   created_at: { type: Date, default: Date.now },
   votes: { type: Number, default: 0 },

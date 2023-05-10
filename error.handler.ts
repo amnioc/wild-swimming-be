@@ -8,7 +8,7 @@ function MongooseErrors(err, req, res, next) {
     return res.status(400).send({ msg: "Invalid Parameter Provided" });
   } else if (err.name === "ValidationError") {
     return res.status(400).send({
-      msg: `${err._message}, please try again`,
+      msg: `${err._message}. Missing or Invalid Field`,
     });
   }
   next(err);

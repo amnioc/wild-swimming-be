@@ -91,7 +91,27 @@ describe("Comments", () => {
         .then((res) => {
           const { msg } = res.body;
           expect(res.status).to.equal(400);
-          expect(msg).to.equal("Comments validation failed, please try again");
+          expect(msg).to.equal(
+            "Comments validation failed. Missing or Invalid Field"
+          );
+        });
+    });
+    it.only('400 - should respond with correct status code and message "Validation Failed" for missing required field', () => {
+      const newComment = {
+        body: "",
+        name: "swimmerBoss",
+      };
+
+      return chai
+        .request(app)
+        .post("/api/comments")
+        .send(newComment)
+        .then((res) => {
+          const { msg } = res.body;
+          expect(res.status).to.equal(400);
+          expect(msg).to.equal(
+            "Comments validation failed. Missing or Invalid Field"
+          );
         });
     });
   });
