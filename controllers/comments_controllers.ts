@@ -20,7 +20,6 @@ exports.getAllComments = (req, res, err) => {
 
 exports.addComments = (req, res, next) => {
   const newComment = req.body;
-
   return insertComment(newComment)
     .then((comment) => {
       res.status(201).send({ comment });
