@@ -9,7 +9,7 @@
     "start": "node dist/server.js",
     "seed": "node dist/db/seeds/seed.js",
     "dev": "npm run build:dev && concurrently \"npx tsc --watch\" \"nodemon -q dist/server.js\"",
-    "test": "mocha dist/test/*.spec.js --reporter spec"
+    "test": "npm run build:dev && mocha dist/test/*.spec.js --reporter spec"
   },
   "repository": {
     "type": "git",

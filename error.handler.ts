@@ -6,6 +6,10 @@ function MongooseErrors(err, req, res, next) {
     return res.status(404).send({ msg: "Comment Does Not Exist" });
   } else if (err.name === "CastError") {
     return res.status(400).send({ msg: "Invalid Parameter Provided" });
+  } else if (err.name === "ValidationError") {
+    return res.status(400).send({
+      msg: `${err._message}, please try again`,
+    });
   }
   next(err);
 }

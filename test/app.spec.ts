@@ -57,6 +57,8 @@ describe("Comments", () => {
       const newComment = {
         body: "Nice place to swim",
         name: "swimmerone",
+        avatar_url:
+          "https://images.unsplash.com/photo-1683053243792-28e9d984c25a?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=880&q=80",
         location_id: "ukd5400-40750",
       };
       return chai
@@ -74,6 +76,22 @@ describe("Comments", () => {
           expect(comment).to.have.property("_id").to.be.a("string"); // comment_id
           expect(comment).to.have.property("user_id").to.be.a("string");
           expect(comment).to.have.property("avatar_url").to.be.a("string");
+        });
+    });
+    it('400 - should respond with correct status code and message "Validation Failed" for incorrect data type', () => {
+      const newComment = {
+        body: "Nice place to swim",
+        name: 1,
+      };
+
+      return chai
+        .request(app)
+        .post("/api/comments")
+        .send({ newComment })
+        .then((res) => {
+          const { msg } = res.body;
+          expect(res.status).to.equal(400);
+          expect(msg).to.equal("Comments validation failed, please try again");
         });
     });
   });

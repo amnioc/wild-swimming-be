@@ -13,7 +13,7 @@ const commentSchema = new mongoose.Schema({
     type: String,
     required: "Please enter your name",
     minLength: 2,
-    default: "swimmer_name",
+    // default: "swimmer_name",
   },
   body: {
     type: String,
